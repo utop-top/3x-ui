@@ -1,1 +1,18 @@
+name: Sync Upstream
 
+on:
+  schedule:
+    # 每天凌晨 2:00 (UTC 时间为 18:00) 自动执行同步
+    - cron: '0 18 * * *'
+  workflow_dispatch: # 允许在 GitHub 页面上点击按钮手动触发同步
+
+jobs:
+  sync-upstream:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sync and merge upstream repository
+        uses: tobiasbueschel/github-fork-sync-action@v1.0.2
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          upstream_repository: 'MHSanaei/3x-ui'
+          target_branch: 'main'
