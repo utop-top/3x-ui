@@ -8,9 +8,11 @@ on:
 jobs:
   sync-upstream:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # 必须授予默认 Token 的写入权限
     steps:
       - name: Sync with upstream using official GitHub CLI
         env:
-          GH_TOKEN: ${{ secrets.SYNC_PAT }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh repo sync ${{ github.repository }} --source MHSanaei/3x-ui --branch main
